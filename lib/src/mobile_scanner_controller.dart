@@ -75,7 +75,7 @@ class MobileScannerController {
         // onCancel: () => setAnalyzeMode(AnalyzeMode.none.index),
         );
 
-   // start();
+    start();
 
     // Listen to events from the platform specific code
     events = eventChannel
@@ -132,24 +132,24 @@ class MobileScannerController {
     // setAnalyzeMode(AnalyzeMode.barcode.index);
 
     // Check authorization status
-    if (!kIsWeb) {
-      MobileScannerState state = MobileScannerState
-          .values[await methodChannel.invokeMethod('state') as int];
-      switch (state) {
-        case MobileScannerState.undetermined:
-          final bool result =
-              await methodChannel.invokeMethod('request') as bool;
-          state = result
-              ? MobileScannerState.authorized
-              : MobileScannerState.denied;
-          break;
-        case MobileScannerState.denied:
-          isStarting = false;
-          throw PlatformException(code: 'NO ACCESS');
-        case MobileScannerState.authorized:
-          break;
-      }
-    }
+    // if (!kIsWeb) {
+    //   MobileScannerState state = MobileScannerState
+    //       .values[await methodChannel.invokeMethod('state') as int];
+    //   switch (state) {
+    //     case MobileScannerState.undetermined:
+    //       final bool result =
+    //           await methodChannel.invokeMethod('request') as bool;
+    //       state = result
+    //           ? MobileScannerState.authorized
+    //           : MobileScannerState.denied;
+    //       break;
+    //     case MobileScannerState.denied:
+    //       isStarting = false;
+    //       throw PlatformException(code: 'NO ACCESS');
+    //     case MobileScannerState.authorized:
+    //       break;
+    //   }
+    // }
 
     cameraFacingState.value = facing;
 
